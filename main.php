@@ -3,7 +3,7 @@
                     <div class="container ie-h-align-center-fix">
                         <div class="row">
                             <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-
+<?php if (!isset($_SESSION['idp'])) { ?>
                                 <form action="signup.php" method="post" class="tm-search-form tm-section-pad-2" id= "signup">
                                     <div class="form-row tm-search-form-row">
                                         
@@ -63,27 +63,30 @@
                                                                         
                                 </form>
 
-                                
 
-                                 <form action="" method="post" class="tm-search-form tm-section-pad-2" >
+    <?php
+}
+else { ?>   
+                                <form action="reservation.php" method="post" class="tm-search-form tm-section-pad-2" >
                                     <div class="form-row tm-search-form-row">
                                         
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="dh" type="datetime-local" class="form-control" placeholder="Date RDV">
+                                            <input name="dh" type="datetime-local" class="form-control" id="inputDate" placeholder="Date RDV">
                                         </div>
                                          
                                         <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-book fa-2x tm-form-element-icon"></i>
-                                            <input name="city" type="text" class="form-control" id="inputCity" placeholder="Motif...">
-                                        </div>
+                                            <input name="motif" type="text" class="form-control" id="inputMotif" placeholder="Motif...">
+                                        </div>  
                                         <div class="form-group tm-form-element tm-form-element-2">
                                             <button type="submit" class="btn btn-primary tm-btn-search">Reserver un RDV</button>
                                         </div>
                                     </div>
                                                                         
                                 </form>
-
+    <?php
+}?>
                             </div>                        
                         </div>      
                     </div>
@@ -104,38 +107,77 @@
                                 <div class="tm-bg-primary tm-sidebar-pad">
                                     <h3 class="tm-color-white tm-sidebar-title">Mes RDV</h3>
                                  </div>
-                                <div class="tm-sidebar-pad-2">
-                                    <a href="#" class="media tm-media tm-recommended-item">
-                                        <img src="img/tn-img-01.jpg" alt="Image">
-                                        <div class="media-body tm-media-body tm-bg-gray">
-                                            <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">Europe</h4>
-                                        </div>  
-                                     </a>
-                                    <a href="#" class="media tm-media tm-recommended-item">
-                                        <img src="img/tn-img-02.jpg" alt="Image">
-                                        <div class="media-body tm-media-body tm-bg-gray">
-                                            <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">Asia</h4>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="media tm-media tm-recommended-item">
-                                        <img src="img/tn-img-03.jpg" alt="Image">
-                                        <div class="media-body tm-media-body tm-bg-gray">
-                                            <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">Africa</h4>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="media tm-media tm-recommended-item">
-                                        <img src="img/tn-img-04.jpg" alt="Image">
-                                        <div class="media-body tm-media-body tm-bg-gray">
-                                            <h4 class="text-uppercase tm-font-semibold tm-sidebar-item-title">South America</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>                            
+                                 <?php if (isset($_SESSION['idp'])) { ?>
+                                 <div class="tri">
+                                    <a href="index.php#rdv">Initial</a>
+                                    <a href="index.php?tri=1#rdv">DAta Ascendante</a>
+                                    <a href="index.php?tri=2#rdv">DAta Descendante</a>
+
+                                    </div>
+                                 <table class="table table-striped tm-table-rdv" id="rdv">    
+                                    <thead>
+                                        <tr>
+                                            <th>motif</th>
+                                            <th>date RDV</th>
+                                            <th>Etat</th>
+                                            <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+    $idp = $_SESSION['idp'];
+    if(isset($_GET['tri'])){
+
+    $tri = $_GET['tri'];
+    if($tri==1  ){
+        $sel = mysqli_query($conn, "select * from rdv WHERE idp = $idp order by dh asc");
+    }
+    if($tri==2){
+        $sel = mysqli_query($conn, "select * from rdv WHERE idp = $idp order by dh desc");
+    }
+    }
+    else{
+        $sel = mysqli_query($conn, "select * from rdv WHERE idp = $idp");
+    }
+    while ($data = mysqli_fetch_assoc($sel)) {
+
+
+?>
+                                    <tr>
+                                       <td><?php echo $data['motif']; ?></td>
+
+                                        <td><?php echo $data['dh']; ?></td>
+                                        <td><?php echo $data['confirmation']; ?></td>
+                                       
+
+                                        <td> <?php if($data['confirmation']=="confirmee"){ ?>
+                                        <a href="imprimer.php?idr=<?php echo $data['idr']; ?>" class="btn btn-sm btn-danger" style="color: white; padding: 5px 10px;">imprimer</a>
+                                        <?php }else{?>
+                                            <a href="supp_rdv.php?idr=<?php echo $data['idr']; ?>" class="btn btn-sm btn-danger" style="color: white; padding: 5px 10px;">annuler</a></td>
+                                        <?php } ?>
+                                    </tr>
+                                    <?php
+    }?>  
+                                    </tbody>
+                            
+                                     
+                                    
+                                 </table>
+                                 <?php
+}
+else { ?>
+                                <a href="index.php">connecter vous pour afficher les RDV</a> 
+                                 <?php
+}?>
+                                
+                                
+
                         </div>
                     </div>
                 </div>
             </div>
-            <script src="jq.js"></script>
+
+                <script src="jq.js"></script>
             <script > 
 
                 $("#signup").hide();

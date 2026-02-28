@@ -12,13 +12,22 @@
                             </button>
                             <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
                                 <ul class="navbar-nav ml-auto">
+                                    
                                   <li class="nav-item">
                                     <a class="nav-link" href="#top">Home <span class="sr-only">(current)</span></a>
                                   </li>
+    <?php if (isset($_SESSION['idp'])) { ?>
                                   <li class="nav-item">
                                     <a class="nav-link" href="#tm-section-4">Mes RDV</a>
                                   </li>
-
+                                   <li class="nav-item">
+                                    <a class="nav-link" href="#"><?php echo $_SESSION['np']; ?></a>
+                                  </li>
+                                   <li class="nav-item">
+                                    <a class="nav-link" href="deconnecter.php">Deconnecter</a>
+                                  </li>
+    <?php
+}?>
                                  
                                 </ul>
                             </div>                            
