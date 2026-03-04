@@ -111,6 +111,51 @@ $numbre_new_rdv= mysqli_num_rows($new_rdv);
 
     </table>
 </div>
+<div class="patients">
+<h1> liste des patients </h1>
+<form action="cpanel.php" method="post">
+    <input type="text" name="np" placeholder=" rechercher par nom ">
+    <input type="submit" value="rechercher">
+</form>
+<table>
+    <tr>
+        <th>id</th>
+        
+        <th>nom</th>
+        <th>telephone</th>
+        <th>email</th>
+        <th>activation</th>
+        <th>action</th>
+    </tr>
+   
+
+    <?php
+   
+    $req_patient = mysqli_query($conn, "select * from  patient");
+    while($data = mysqli_fetch_assoc($req_patient)){
+    ?>
+    <tr>
+        <td><?php echo $data['idp']; ?></td>
+        <td><?php echo $data['np']; ?></td>
+        <td><?php echo $data['tel']; ?></td>
+        <td><?php echo $data['email']; ?></td>
+        <td><?php echo $data['activation']; ?></td>
+       
+        <td>
+            <?php if($data['activation'] == 'oui'){ ?>
+                <a href="desactiver.php?idp=<?php echo $data['idp']; ?>">desactiver</a>
+            <?php } else { ?>
+                <a href="activer.php?idp=<?php echo $data['idp']; ?>">activer</a>
+            <?php } ?>
+        </td>
+
+        
+    </tr>
+    <?php } ?>
+</table>
+<div>
+
+</div>
 
 </body>
 
