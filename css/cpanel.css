@@ -1,113 +1,308 @@
-/* cpanel.css */
+/* cpanel.css - Cabinet Dentaire Admin Dashboard */
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2c3e50;
-    --bg-color: #f4f7f6;
-    --card-bg: #ffffff;
-    --text-color: #333;
-    --success-color: #2ecc71;
+    --primary-color: #0066cc;
+    --primary-dark: #0052a3;
+    --secondary-color: #1a2332;
+    --success-color: #27ae60;
     --danger-color: #e74c3c;
-    --border-radius: 8px;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+    --bg-color: #f0f3f7;
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #ecf0f1;
+    --border-radius: 12px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    margin: 0;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
-/* Navigation Style */
+/* ==================== NAVIGATION ==================== */
 .nav {
-    background-color: var(--secondary-color);
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #0f1621 100%);
+    padding: 0;
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: flex-end;
-    gap: 20px;
+    align-items: center;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    flex-wrap: wrap;
+}
+
+.nav ul li {
+    position: relative;
 }
 
 .nav ul li a {
-    color: white;
+    color: #ecf0f1;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s;
+    padding: 1.2rem 1.5rem;
+    display: block;
+    transition: var(--transition);
+    text-transform: capitalize;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
 }
 
-.nav ul li a:hover {
-    color: var(--primary-color);
+.nav ul li a:hover,
+.nav ul li a:focus {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: calc(1.2rem - 3px);
 }
 
-/* Statistics Style */
+/* ==================== STATISTICS ==================== */
 .statistique {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 40px 20px;
-    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 50px 2rem;
+    max-width: 1400px;
     margin: 0 auto;
     width: 100%;
 }
 
 .statistique h1 {
     background: var(--card-bg);
-    padding: 30px;
+    padding: 35px 25px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     text-align: center;
     font-size: 1.1rem;
-    color: var(--secondary-color);
+    color: var(--text-color);
     margin: 0;
     border-top: 5px solid var(--primary-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    flex: 1;
-    min-width: 250px;
+    transition: var(--transition);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-.statistique h1 i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    opacity: 0.8;
+.statistique h1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.statistique h1:hover::before {
+    left: 100%;
 }
 
 .statistique h1:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-top-color: var(--primary-dark);
 }
 
-/* RDV Table Style */
-.rdv {
-    padding: 20px;
-    max-width: 1200px;
+.statistique h1 i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.9;
+}
+
+.statistique h1:nth-child(2) {
+    border-top-color: var(--info-color);
+}
+
+.statistique h1:nth-child(2) i {
+    color: var(--info-color);
+}
+
+.statistique h1:nth-child(3) {
+    border-top-color: var(--warning-color);
+}
+
+.statistique h1:nth-child(3) i {
+    color: var(--warning-color);
+}
+
+/* ==================== RDV SECTION ==================== */
+.rdv,
+.patients {
+    padding: 40px 2rem;
+    max-width: 1400px;
     margin: 40px auto;
     width: 100%;
 }
 
-.rdv::before {
-    content: "Liste des Rendez-vous";
+.rdv h1::before,
+.patients h1::before {
+    content: attr(data-title);
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     border-left: 5px solid var(--primary-color);
     padding-left: 15px;
+    letter-spacing: 0.2px;
 }
 
+.rdv::before {
+    content: "📅 Liste des Rendez-vous";
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+    letter-spacing: 0.2px;
+}
+
+.patients::before {
+    content: "👥 Liste des Patients";
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 15px;
+    letter-spacing: 0.2px;
+}
+
+/* ==================== FORMS ==================== */
+.rdv form,
+.patients form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-bottom: 30px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    align-items: center;
+}
+
+.rdv input[type="text"],
+.patients input[type="text"],
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    transition: var(--transition);
+    background-color: #fafbfc;
+    color: var(--text-color);
+}
+
+.rdv input[type="text"]:focus,
+.patients input[type="text"]:focus,
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+}
+
+.rdv input[type="submit"],
+.patients input[type="submit"],
+form input[type="submit"],
+.rdv a[href*="imprimer"],
+.patients a[href*="imprimer"] {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rdv input[type="submit"]:hover,
+.patients input[type="submit"]:hover,
+form input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+}
+
+.rdv input[type="submit"]:active,
+.patients input[type="submit"]:active,
+form input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Sort/Action Links */
+.rdv a[href*="tri"],
+.rdv a[href*="imprimer"] {
+    padding: 10px 16px;
+    display: inline-block;
+    margin: 5px 5px 5px 0;
+    background-color: var(--info-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+    cursor: pointer;
+    text-transform: uppercase;
+    border: 2px solid var(--info-color);
+}
+
+.rdv a[href*="tri"]:hover,
+.rdv a[href*="imprimer"]:hover {
+    background-color: transparent;
+    color: var(--info-color);
+}
+
+/* ==================== TABLES ==================== */
 table {
     width: 100%;
     border-collapse: separate;
@@ -116,145 +311,310 @@ table {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
+    margin-bottom: 40px;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--secondary-color), #0f1621);
 }
 
 th {
-    background-color: var(--secondary-color);
     color: white;
-    padding: 15px;
+    padding: 16px 18px;
     text-align: left;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 3px solid var(--primary-color);
 }
 
 td {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    color: var(--text-color);
 }
 
-tr:last-child td {
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background-color: #f8fafb;
+}
+
+tbody tr:last-child td {
     border-bottom: none;
 }
 
-tr:hover {
-    background-color: #f9f9f9;
-}
-
-/* Actions Style */
-.rdv a {
-    padding: 8px 12px;
-    border-radius: 4px;
+/* ==================== ACTION BUTTONS ==================== */
+td a {
+    padding: 8px 14px;
+    border-radius: 6px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     display: inline-block;
+    transition: var(--transition);
+    margin-right: 6px;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    cursor: pointer;
+    letter-spacing: 0.3px;
 }
 
-.rdv a[href*="confirmer.php"] {
+/* Confirmer button (green) */
+a[href*="confirmer"] {
     background-color: var(--success-color);
     color: white;
 }
 
-.rdv a[href*="annuler.php"] {
+a[href*="confirmer"]:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* Annuler button (red) */
+a[href*="annuler"] {
     background-color: var(--danger-color);
     color: white;
-    margin-left: 5px;
 }
 
-.rdv a:hover {
-    opacity: 0.9;
+a[href*="annuler"]:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
 }
 
-/* Form Style for Compte Page */
+/* Activer button (blue) */
+a[href*="activer"] {
+    background-color: var(--info-color);
+    color: white;
+}
+
+a[href*="activer"]:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Désactiver button (orange) */
+a[href*="desactiver"] {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+a[href*="desactiver"]:hover {
+    background-color: #d68910;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+}
+
+/* ==================== ACCOUNT FORM ==================== */
 form {
     max-width: 500px;
     margin: 60px auto;
     padding: 40px;
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
+    border-top: 5px solid var(--primary-color);
 }
 
 form::before {
-    content: "Modifier mon Compte";
+    content: "⚙️ Modifier mon Compte";
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--secondary-color);
     margin-bottom: 10px;
     text-align: center;
     border-bottom: 3px solid var(--primary-color);
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 form input[type="text"],
-form input[type="password"] {
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
+form input[type="password"],
+form input[type="email"] {
+    padding: 14px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
     font-size: 1rem;
     font-family: 'Open Sans', sans-serif;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #f9f9f9;
+    transition: var(--transition);
+    background-color: #fafbfc;
 }
 
 form input[type="text"]:focus,
-form input[type="password"]:focus {
+form input[type="password"]:focus,
+form input[type="email"]:focus {
     outline: none;
     border-color: var(--primary-color);
     background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
 }
 
 form input[type="submit"] {
-    padding: 12px 25px;
-    background-color: var(--primary-color);
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 10px;
+    transition: var(--transition);
+    margin-top: 15px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 form input[type="submit"]:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 102, 204, 0.3);
 }
 
 form input[type="submit"]:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+    transform: translateY(-1px);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .rdv,
+    .patients {
+        padding: 30px 1.5rem;
+    }
+
+    .statistique {
+        padding: 40px 1.5rem;
+        gap: 20px;
+    }
 }
 
 @media (max-width: 768px) {
     .nav ul {
+        padding: 0 1rem;
         justify-content: center;
+    }
+
+    .nav ul li a {
+        padding: 1rem 0.8rem;
+        font-size: 0.85rem;
     }
 
     .statistique {
         grid-template-columns: 1fr;
+        padding: 30px 1rem;
+    }
+
+    .statistique h1 {
+        padding: 25px 20px;
+    }
+
+    .rdv form,
+    .patients form {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     table {
-        display: block;
-        overflow-x: auto;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 12px 10px;
+    }
+
+    td a {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        margin-bottom: 5px;
     }
 
     form {
-        margin: 40px 15px;
-        padding: 30px 20px;
+        margin: 40px 1rem;
+        padding: 30px 1.5rem;
     }
 
     form input[type="text"],
     form input[type="password"],
+    form input[type="email"],
     form input[type="submit"] {
-        font-size: 16px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .rdv::before,
+    .patients::before {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav ul li a {
+        width: 100%;
+        padding: 12px 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .statistique {
+        padding: 20px 1rem;
+        gap: 15px;
+    }
+
+    .statistique h1 {
+        padding: 20px 15px;
+        font-size: 1rem;
+    }
+
+    .statistique h1 i {
+        font-size: 2rem;
+    }
+
+    .rdv,
+    .patients {
+        padding: 20px 1rem;
+        margin: 20px auto;
+    }
+
+    .rdv::before,
+    .patients::before {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 10px 8px;
+    }
+
+    td a {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form {
+        margin: 30px 1rem;
+        padding: 20px 1rem;
+        gap: 15px;
+    }
+
+    form::before {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
     }
 }

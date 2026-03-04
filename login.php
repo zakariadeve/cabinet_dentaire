@@ -9,7 +9,7 @@
 
 // recherche si  deja un compte avec le meme email
 $rech=mysqli_query($conn,"select * from patient
- where email='$email' and mdp='$mdp' , and activation='oui' ");
+ where email='$email' and mdp='$mdp'  and activation='oui' ");
     if( mysqli_num_rows($rech)==1){
         $data=mysqli_fetch_assoc($rech);
           $_SESSION['idp']=$data['idp'];

@@ -23,6 +23,9 @@
                                    <li class="nav-item">
                                     <a class="nav-link" href="#"><?php echo $_SESSION['np']; ?></a>
                                   </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="maj_patient.php">MAJ Compte</a>
+                                  </li>
                                    <li class="nav-item">
                                     <a class="nav-link" href="deconnecter.php">Deconnecter</a>
                                   </li>

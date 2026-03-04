@@ -22,8 +22,9 @@ if (!isset($_SESSION['ida'])) {
 ?>
    <div class="nav">
     <ul>
-        <li><a href="index.php">home</a></li>
-        <li><a href="#zone_rdv">RDV</a></li>
+        <li><a href="cpanel.php">home</a></li>
+        <li><a href="cpanel.php#zone_rdv">RDV</a></li>
+        <li><a href="cpanel.php#zone_patients">patients</a></li>
         <li><a href="compte.php">mon compte</a></li>
         <li><a href="deconnecter.php">deconnecter</a></li>
        

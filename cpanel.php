@@ -12,7 +12,7 @@ include "connection.php";
     <!-- load stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/cpanel.css?v=1">
+    <link rel="stylesheet" href="css/cpanel.css">
 </head>
 <body>
     <?php
@@ -22,8 +22,9 @@ if (!isset($_SESSION['ida'])) {
 ?>
    <div class="nav">
     <ul>
-        <li><a href="index.php">home</a></li>
+      <li><a href="cpanel.php">home</a></li>
         <li><a href="#zone_rdv">RDV</a></li>
+        <li><a href="#zone_patients">patients</a></li>
         <li><a href="compte.php">mon compte</a></li>
         <li><a href="deconnecter.php">deconnecter</a></li>
        
@@ -52,6 +53,9 @@ $numbre_new_rdv= mysqli_num_rows($new_rdv);
     <a href="cpanel.php?tri=0"> initial</a>
     <a href="cpanel.php?tri=1"> tri etat asc</a>
     <a href="cpanel.php?tri=2"> tri etat desc</a>
+    <a href="imprimer_rdv.php?etat=1"> imprimer tous</a>
+     <a href="imprimer_rdv.php?etat=2"> imprimer Aujourd'huit </a>
+      
 
     <form action="cpanel.php" method="post">
         <input type="text" name="motif" placeholder=" rechercher ">
@@ -111,9 +115,9 @@ $numbre_new_rdv= mysqli_num_rows($new_rdv);
 
     </table>
 </div>
-<div class="patients">
+<div class="patients" id="zone_patients">
 <h1> liste des patients </h1>
-<form action="cpanel.php" method="post">
+<form action="cpanel.php#zone_patients" method="post">
     <input type="text" name="np" placeholder=" rechercher par nom ">
     <input type="submit" value="rechercher">
 </form>
@@ -130,8 +134,13 @@ $numbre_new_rdv= mysqli_num_rows($new_rdv);
    
 
     <?php
-   
+   if (isset($_POST['np'])){
+    $np = $_POST['np'];
+    $req_patient = mysqli_query($conn, "select * from  patient 
+    where np like '%$np%'");
+   } else {
     $req_patient = mysqli_query($conn, "select * from  patient");
+    }
     while($data = mysqli_fetch_assoc($req_patient)){
     ?>
     <tr>
