@@ -55,6 +55,19 @@ $numbre_new_rdv= mysqli_num_rows($new_rdv);
     <a href="cpanel.php?tri=2"> tri etat desc</a>
     <a href="imprimer_rdv.php?etat=1"> imprimer tous</a>
      <a href="imprimer_rdv.php?etat=2"> imprimer Aujourd'huit </a>
+
+     <form action="imprimer_rdv.php" method="post">
+            <input type="date" name="d1"  echo date>
+            <input type="date" name="d2"  echo date>
+            <input type="submit" value="imprimer par date">
+     </form>
+
+
+
+       
+
+   
+
       
 
     <form action="cpanel.php" method="post">

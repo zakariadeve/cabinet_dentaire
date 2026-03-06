@@ -10,14 +10,20 @@ if (isset($_GET['etat'])) {
            
         }       
         if ($etat == 2) {
-            $dh = date("Y-m-d");
+            $dh = date("Y-m-d ");
 
             $req = mysqli_query($conn, "select * from rdv,patient 
-            where rdv.idp=patient.idp and dh='$dh'");
+            where rdv.idp=patient.idp and dh like'%$dh%'");
            
         }  
 
 }
+ if(isset($_POST['d1']) && isset($_POST['d2'])){
+    $d1 = $_POST['d1'];
+    $d2 = $_POST['d2'];
+    $req = mysqli_query($conn, "select * from rdv,patient 
+    where rdv.idp=patient.idp and DATE(dh) between  '$d1' and '$d2' ");
+ }
 
 
 

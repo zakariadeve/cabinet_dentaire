@@ -34,7 +34,7 @@ include "connection.php";
           <label > Nouveau Mot de passe:</label>    
           <input type="password" name="n_mdp" >
             <label >Ancien Mot de passe:</label>    
-          <input type="password" name="mdp" required>
+          <input type="password" name="mdp" required> 
           
           <input type="submit" name="btn" value="modifier">
      </form>
